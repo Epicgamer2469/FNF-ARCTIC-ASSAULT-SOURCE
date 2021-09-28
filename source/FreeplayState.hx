@@ -4,6 +4,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.system.FlxSound;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -32,6 +33,8 @@ class FreeplayState extends MusicBeatState
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var combo:String = '';
+
+	var voices:FlxSound;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -168,14 +171,31 @@ class FreeplayState extends MusicBeatState
 		}
 	}
 
+	override function onFocus():Void
+		{
+			voices.resume();
+		}
+	
+	override function onFocusLost():Void
+		{
+			voices.pause();
+		}
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		voices.time = FlxG.sound.music.time;
 
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+
+		if (voices.volume < 0.7)
+			{
+				voices.volume += 0.5 * FlxG.elapsed;
+			}
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
 
@@ -251,6 +271,7 @@ class FreeplayState extends MusicBeatState
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState());
+			voices.destroy();
 		}
 	}
 
@@ -284,6 +305,9 @@ class FreeplayState extends MusicBeatState
 		// NGio.logEvent('Fresh');
 		#end
 
+		if (voices != null)
+			voices.destroy();
+
 		// NGio.logEvent('Fresh');
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
@@ -312,6 +336,9 @@ class FreeplayState extends MusicBeatState
 
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+		voices = new FlxSound().loadEmbedded(Paths.voices(songs[curSelected].songName));
+		voices.volume = 0;
+		voices.play();
 		#end
 
 		var bullShit:Int = 0;

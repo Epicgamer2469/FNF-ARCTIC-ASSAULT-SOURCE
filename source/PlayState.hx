@@ -4,6 +4,7 @@ import openfl.ui.KeyLocation;
 import openfl.events.Event;
 import haxe.EnumTools;
 import openfl.ui.Keyboard;
+import flixel.addons.display.FlxBackdrop;
 import openfl.events.KeyboardEvent;
 import Replay.Ana;
 import Replay.Analysis;
@@ -183,6 +184,7 @@ class PlayState extends MusicBeatState
 	var upperBoppers:FlxSprite;
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
+	var syrup:FlxSprite;
 
 	var fc:Bool = true;
 
@@ -194,6 +196,7 @@ class PlayState extends MusicBeatState
 	var songScoreDef:Int = 0;
 	var scoreTxt:FlxText;
 	var replayTxt:FlxText;
+	var snow:FlxBackdrop;
 
 	public static var campaignScore:Int = 0;
 
@@ -387,6 +390,28 @@ class PlayState extends MusicBeatState
 
 		switch(stageCheck)
 		{
+			case 'snowy':
+				{
+					curStage = 'snowy';
+					defaultCamZoom = .6;
+
+					var bg:FlxSprite = new FlxSprite(-650, -600).loadGraphic(Paths.image('arctic/bg', 'shared'));
+					bg.scrollFactor.set(0.95, 0.95);
+					add(bg);
+
+					syrup = new FlxSprite();
+					syrup.frames = Paths.getSparrowAtlas('arctic/bottle', 'shared');
+					syrup.antialiasing = true;
+					syrup.animation.addByPrefix('bump', 'syrup', 24);
+					syrup.visible = false;
+					syrup.scale.set(1.4, 1.4);
+					syrup.screenCenter();
+					syrup.y += 350;
+					add(syrup);
+
+					snow = new FlxBackdrop(Paths.image('snow', 'preload'), 1, 1, true, true);
+					snow.visible = false;
+				}
 			case 'halloween': 
 			{
 				curStage = 'spooky';
@@ -799,6 +824,8 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.player2)
 		{
+			case 'max':
+				camPos.set(dad.getGraphicMidpoint().x + 250, dad.getGraphicMidpoint().y);
 			case 'gf':
 				dad.setPosition(gf.x, gf.y);
 				gf.visible = false;
@@ -807,7 +834,6 @@ class PlayState extends MusicBeatState
 					camPos.x += 600;
 					tweenCamIn();
 				}
-
 			case "spooky":
 				dad.y += 200;
 			case "monster":
@@ -842,6 +868,11 @@ class PlayState extends MusicBeatState
 		// REPOSITIONING PER STAGE
 		switch (curStage)
 		{
+			case 'snowy':
+				camPos.y = boyfriend.getMidpoint().y - 275;
+				boyfriend.x += 200;
+				dad.x -= 300;
+				dad.y -= 500;
 			case 'limo':
 				boyfriend.y -= 220;
 				boyfriend.x += 260;
@@ -880,7 +911,11 @@ class PlayState extends MusicBeatState
 
 		if (!PlayStateChangeables.Optimize)
 		{
-			add(gf);
+			if (curStage != 'snowy')
+				add(gf);
+
+			if (curStage == 'snowy' && FlxG.random.bool(5))
+				syrup.visible = true;
 
 			// Shitty layering but whatev it works LOL
 			if (curStage == 'limo')
@@ -1044,6 +1079,12 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		if (snow != null)
+			{
+				add(snow);
+				snow.cameras = [camHUD];
+			}
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1886,6 +1927,11 @@ class PlayState extends MusicBeatState
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
+		if (snow != null)
+			{
+				snow.x += 1.7;
+				snow.y += 1.3;
+			}
 
 		if (useVideo && GlobalVideo.get() != null && !stopUpdate)
 			{		
@@ -2275,6 +2321,8 @@ class PlayState extends MusicBeatState
 
 				switch (dad.curCharacter)
 				{
+					case 'max':
+						camFollow.x = dad.getMidpoint().x + 175;
 					case 'mom':
 						camFollow.y = dad.getMidpoint().y;
 					case 'senpai':
@@ -2309,6 +2357,9 @@ class PlayState extends MusicBeatState
 
 				switch (curStage)
 				{
+					case 'snowy':
+						camFollow.x = boyfriend.getMidpoint().x - 250;
+						camFollow.y = boyfriend.getMidpoint().y - 275;
 					case 'limo':
 						camFollow.x = boyfriend.getMidpoint().x - 300;
 					case 'mall':
@@ -3786,6 +3837,28 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		switch (curSong)
+			{
+				case 'munitions':
+					switch(curStep)
+						{
+							case 256:
+								camGame.camera.flash(FlxColor.WHITE, .75);
+								FlxTween.tween(FlxG.camera, {zoom: .8}, 1, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
+									{
+										defaultCamZoom = .8;
+									}
+								});
+								snow.visible = true;
+							case 768:
+								FlxTween.tween(FlxG.camera, {zoom: .6}, 1, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
+									{
+										defaultCamZoom = .6;
+									}
+								});
+						}
+			}
+
 		// yes this updates every step.
 		// yes this is bad
 		// but i'm doing it to update misses and accuracy
@@ -3858,6 +3931,8 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03;
 			}
 	
+			if (curSong == 'munitions' && curStep >= 256 && curBeat % 2 == 0)
+				FlxG.camera.zoom += 0.045;
 		}
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
@@ -3890,6 +3965,8 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'snowy':
+				syrup.animation.play('bump', true);
 			case 'school':
 				if(FlxG.save.data.distractions){
 					bgGirls.dance();

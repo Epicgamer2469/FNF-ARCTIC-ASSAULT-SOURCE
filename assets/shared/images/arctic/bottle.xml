@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bottle.png">
+	<!-- Created with Adobe Animate version 21.0.6.41649 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="syrup0000" x="0" y="0" width="149" height="176" frameX="0" frameY="-6" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0001" x="149" y="0" width="147" height="178" frameX="-1" frameY="-4" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0002" x="296" y="0" width="145" height="178" frameX="-2" frameY="-4" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0003" x="441" y="0" width="143" height="179" frameX="-3" frameY="-3" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0004" x="584" y="0" width="141" height="180" frameX="-4" frameY="-2" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0005" x="725" y="0" width="140" height="181" frameX="-4" frameY="-1" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0006" x="865" y="0" width="139" height="181" frameX="-5" frameY="-1" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0007" x="0" y="181" width="137" height="182" frameX="-6" frameY="0" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0008" x="137" y="181" width="137" height="182" frameX="-6" frameY="0" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0009" x="274" y="181" width="137" height="182" frameX="-6" frameY="0" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0010" x="411" y="181" width="136" height="182" frameX="-6" frameY="0" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0011" x="547" y="181" width="136" height="182" frameX="-6" frameY="0" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0012" x="683" y="181" width="143" height="179" frameX="-3" frameY="-3" frameWidth="149" frameHeight="182"/>
+	<SubTexture name="syrup0013" x="0" y="0" width="149" height="176" frameX="0" frameY="-6" frameWidth="149" frameHeight="182"/>
+</TextureAtlas>

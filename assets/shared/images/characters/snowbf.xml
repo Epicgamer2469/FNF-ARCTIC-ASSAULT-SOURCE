@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="snowbf.png"><SubTexture name="snowbf down note0000" x="0" y="0" width="354" height="364" frameX="0" frameY="0" frameWidth="354" frameHeight="364" />
+<SubTexture name="snowbf down note0001" x="354" y="0" width="352" height="361" frameX="0" frameY="0" frameWidth="352" frameHeight="361" />
+<SubTexture name="snowbf down note0002" x="706" y="0" width="351" height="360" frameX="0" frameY="0" frameWidth="351" frameHeight="360" />
+<SubTexture name="snowbf down note0003" x="1057" y="0" width="348" height="359" frameX="0" frameY="0" frameWidth="348" frameHeight="359" />
+<SubTexture name="snowbf down note0004" x="0" y="364" width="352" height="362" frameX="0" frameY="0" frameWidth="352" frameHeight="362" />
+<SubTexture name="snowbf down note0005" x="352" y="364" width="352" height="363" frameX="0" frameY="0" frameWidth="352" frameHeight="363" />
+<SubTexture name="snowbf DOWN NOTE MISS0000" x="704" y="364" width="347" height="397" frameX="0" frameY="0" frameWidth="347" frameHeight="397" />
+<SubTexture name="snowbf DOWN NOTE MISS0001" x="1051" y="364" width="344" height="395" frameX="0" frameY="0" frameWidth="344" frameHeight="395" />
+<SubTexture name="snowbf left note0000" x="0" y="761" width="360" height="413" frameX="0" frameY="0" frameWidth="360" frameHeight="413" />
+<SubTexture name="snowbf left note0001" x="360" y="761" width="356" height="414" frameX="0" frameY="0" frameWidth="356" frameHeight="414" />
+<SubTexture name="snowbf left note0002" x="716" y="761" width="356" height="413" frameX="0" frameY="0" frameWidth="356" frameHeight="413" />
+<SubTexture name="snowbf left note0003" x="1072" y="761" width="355" height="413" frameX="0" frameY="0" frameWidth="355" frameHeight="413" />
+<SubTexture name="snowbf left note0004" x="0" y="1175" width="357" height="414" frameX="0" frameY="0" frameWidth="357" frameHeight="414" />
+<SubTexture name="snowbf left note0005" x="357" y="1175" width="357" height="414" frameX="0" frameY="0" frameWidth="357" frameHeight="414" />
+<SubTexture name="snowbf left note0006" x="714" y="1175" width="358" height="414" frameX="0" frameY="0" frameWidth="358" frameHeight="414" />
+<SubTexture name="snowbf LEFT NOTE MISS0000" x="1072" y="1175" width="374" height="431" frameX="0" frameY="0" frameWidth="374" frameHeight="431" />
+<SubTexture name="snowbf LEFT NOTE MISS0001" x="0" y="1606" width="368" height="431" frameX="0" frameY="0" frameWidth="368" frameHeight="431" />
+<SubTexture name="snowbf right note0000" x="368" y="1606" width="366" height="408" frameX="0" frameY="0" frameWidth="366" frameHeight="408" />
+<SubTexture name="snowbf right note0001" x="734" y="1606" width="363" height="408" frameX="0" frameY="0" frameWidth="363" frameHeight="408" />
+<SubTexture name="snowbf right note0002" x="1097" y="1606" width="358" height="408" frameX="0" frameY="0" frameWidth="358" frameHeight="408" />
+<SubTexture name="snowbf right note0003" x="0" y="2037" width="364" height="407" frameX="0" frameY="0" frameWidth="364" frameHeight="407" />
+<SubTexture name="snowbf right note0004" x="364" y="2037" width="368" height="409" frameX="0" frameY="0" frameWidth="368" frameHeight="409" />
+<SubTexture name="snowbf right note0005" x="732" y="2037" width="366" height="408" frameX="0" frameY="0" frameWidth="366" frameHeight="408" />
+<SubTexture name="snowbf RIGHT NOTE MISS0000" x="1098" y="2037" width="384" height="437" frameX="0" frameY="0" frameWidth="384" frameHeight="437" />
+<SubTexture name="snowbf RIGHT NOTE MISS0001" x="0" y="2474" width="378" height="435" frameX="0" frameY="0" frameWidth="378" frameHeight="435" />
+<SubTexture name="snowbf up note0000" x="378" y="2474" width="350" height="454" frameX="0" frameY="0" frameWidth="350" frameHeight="454" />
+<SubTexture name="snowbf up note0001" x="728" y="2474" width="353" height="454" frameX="0" frameY="0" frameWidth="353" frameHeight="454" />
+<SubTexture name="snowbf up note0002" x="1081" y="2474" width="353" height="452" frameX="0" frameY="0" frameWidth="353" frameHeight="452" />
+<SubTexture name="snowbf up note0003" x="0" y="2928" width="347" height="452" frameX="0" frameY="0" frameWidth="347" frameHeight="452" />
+<SubTexture name="snowbf up note0004" x="347" y="2928" width="348" height="454" frameX="0" frameY="0" frameWidth="348" frameHeight="454" />
+<SubTexture name="snowbf up note0005" x="695" y="2928" width="349" height="452" frameX="0" frameY="0" frameWidth="349" frameHeight="452" />
+<SubTexture name="snowbf UP NOTE MISS0000" x="1044" y="2928" width="354" height="434" frameX="0" frameY="0" frameWidth="354" frameHeight="434" />
+<SubTexture name="snowbf UP NOTE MISS0001" x="0" y="3382" width="358" height="434" frameX="0" frameY="0" frameWidth="358" frameHeight="434" />
+<SubTexture name="snowbf idle pose0000" x="358" y="3382" width="392" height="399" frameX="0" frameY="0" frameWidth="392" frameHeight="399" />
+<SubTexture name="snowbf idle pose0001" x="750" y="3382" width="400" height="399" frameX="0" frameY="0" frameWidth="400" frameHeight="399" />
+<SubTexture name="snowbf idle pose0002" x="1150" y="3382" width="411" height="399" frameX="0" frameY="0" frameWidth="411" frameHeight="399" />
+<SubTexture name="snowbf idle pose0003" x="0" y="3816" width="416" height="399" frameX="0" frameY="0" frameWidth="416" frameHeight="399" />
+<SubTexture name="snowbf idle pose0004" x="416" y="3816" width="401" height="399" frameX="0" frameY="0" frameWidth="401" frameHeight="399" />
+<SubTexture name="snowbf idle pose0005" x="817" y="3816" width="392" height="399" frameX="0" frameY="0" frameWidth="392" frameHeight="399" />
+<SubTexture name="snowbf idle pose0006" x="1209" y="3816" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+<SubTexture name="snowbf idle pose0007" x="0" y="4215" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+<SubTexture name="snowbf idle pose0008" x="391" y="4215" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+<SubTexture name="snowbf idle pose0009" x="782" y="4215" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+<SubTexture name="snowbf idle pose0010" x="1173" y="4215" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+<SubTexture name="snowbf idle pose0011" x="0" y="4614" width="391" height="399" frameX="0" frameY="0" frameWidth="391" frameHeight="399" />
+</TextureAtlas>
