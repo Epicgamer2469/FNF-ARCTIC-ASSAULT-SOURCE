@@ -338,7 +338,7 @@ class FreeplayState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		voices = new FlxSound().loadEmbedded(Paths.voices(songs[curSelected].songName));
 		voices.volume = 0;
-		voices.play();
+		//voices.play();
 		#end
 
 		var bullShit:Int = 0;

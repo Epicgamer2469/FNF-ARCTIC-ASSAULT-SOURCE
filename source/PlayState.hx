@@ -79,6 +79,9 @@ class PlayState extends MusicBeatState
 {
 	public static var instance:PlayState = null;
 
+	var camMiddle:Bool = false;
+	var snowFactor:Float = 1;
+
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
 	public static var isStoryMode:Bool = false;
@@ -362,6 +365,8 @@ class PlayState extends MusicBeatState
 					"If you can beat me here...",
 					"Only then I will even CONSIDER letting you\ndate my daughter!"
 				];
+			case 'munitions':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('munitions/munitionsSHIT'));
 			case 'senpai':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
 			case 'roses':
@@ -410,6 +415,7 @@ class PlayState extends MusicBeatState
 					add(syrup);
 
 					snow = new FlxBackdrop(Paths.image('snow', 'preload'), 1, 1, true, true);
+					snow.scrollFactor.set();
 					snow.visible = false;
 				}
 			case 'halloween': 
@@ -1144,6 +1150,8 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
+				case 'munitions':
+					schoolIntro(doof);
 				case 'senpai':
 					schoolIntro(doof);
 				case 'roses':
@@ -1176,7 +1184,7 @@ class PlayState extends MusicBeatState
 	{
 		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		black.scrollFactor.set();
-		add(black);
+		//add(black);
 
 		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
 		red.scrollFactor.set();
@@ -1198,62 +1206,13 @@ class PlayState extends MusicBeatState
 				add(red);
 			}
 		}
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer)
-		{
-			black.alpha -= 0.15;
-
-			if (black.alpha > 0)
+		if (dialogueBox != null)
 			{
-				tmr.reset(0.3);
+				inCutscene = true;
+				add(dialogueBox);
 			}
-			else
-			{
-				if (dialogueBox != null)
-				{
-					inCutscene = true;
-
-					if (StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase() == 'thorns')
-					{
-						add(senpaiEvil);
-						senpaiEvil.alpha = 0;
-						new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
-						{
-							senpaiEvil.alpha += 0.15;
-							if (senpaiEvil.alpha < 1)
-							{
-								swagTimer.reset();
-							}
-							else
-							{
-								senpaiEvil.animation.play('idle');
-								FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
-								{
-									remove(senpaiEvil);
-									remove(red);
-									FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
-									{
-										add(dialogueBox);
-									}, true);
-								});
-								new FlxTimer().start(3.2, function(deadTime:FlxTimer)
-								{
-									FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
-								});
-							}
-						});
-					}
-					else
-					{
-						add(dialogueBox);
-					}
-				}
-				else
-					startCountdown();
-
-				remove(black);
-			}
-		});
+		else
+			startCountdown();
 	}
 
 	var startTimer:FlxTimer;
@@ -1929,8 +1888,8 @@ class PlayState extends MusicBeatState
 
 		if (snow != null)
 			{
-				snow.x += 1.7;
-				snow.y += 1.3;
+				snow.x += 1.7 * snowFactor;
+				snow.y += 1.3 * snowFactor;
 			}
 
 		if (useVideo && GlobalVideo.get() != null && !stopUpdate)
@@ -2337,7 +2296,7 @@ class PlayState extends MusicBeatState
 					vocals.volume = 1;
 			}
 
-			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100)
+			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100 && !camMiddle)
 			{
 				var offsetX = 0;
 				var offsetY = 0;
@@ -3843,7 +3802,7 @@ class PlayState extends MusicBeatState
 					switch(curStep)
 						{
 							case 256:
-								camGame.camera.flash(FlxColor.WHITE, .75);
+								camGame.flash(FlxColor.WHITE, .75);
 								FlxTween.tween(FlxG.camera, {zoom: .8}, 1, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
 									{
 										defaultCamZoom = .8;
@@ -3854,6 +3813,29 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(FlxG.camera, {zoom: .6}, 1, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
 									{
 										defaultCamZoom = .6;
+									}
+								});
+							case 1008:
+								FlxTween.tween(FlxG.camera, {zoom: .9}, 1.5, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
+									{
+										defaultCamZoom = .9;
+									}
+								});
+							case 1024:
+								camGame.flash(FlxColor.WHITE, .75);
+								snowFactor = 1.4;
+								FlxTween.tween(FlxG.camera, {zoom: .6}, 1, {ease: FlxEase.quadOut, onComplete: function(twn:FlxTween)
+									{
+										defaultCamZoom = .6;
+									}
+								});
+							case 1600:
+								camMiddle = true;
+								camFollow.x -= 250;
+							case 1648:
+								FlxTween.tween(FlxG.camera, {zoom: .7}, 2, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween)
+									{
+										defaultCamZoom = .7;
 									}
 								});
 						}
@@ -3931,8 +3913,11 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03;
 			}
 	
-			if (curSong == 'munitions' && curStep >= 256 && curBeat % 2 == 0)
-				FlxG.camera.zoom += 0.045;
+			if (curSong == 'munitions' && curStep > 256 && curStep < 758 && curBeat % 2 == 0 || curSong == 'munitions' && curStep > 1028 && curBeat % 2 == 0)
+				{
+					FlxG.camera.zoom += 0.045;
+					camHUD.zoom += 0.015;
+				}
 		}
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));

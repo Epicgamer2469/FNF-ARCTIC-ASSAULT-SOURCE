@@ -1,5 +1,7 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.system.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -48,10 +50,10 @@ class DialogueBox extends FlxSpriteGroup
 	{
 		super();
 
-		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFB3DFd8);
+		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFFFFFFF);
 		bgFade.scrollFactor.set();
-		bgFade.alpha = 0;
-		//add(bgFade);
+		bgFade.alpha = .2;
+		add(bgFade);
 
 		bottomImage = new FlxSprite(0, 0);
 		bottomImage.visible = false;
@@ -194,7 +196,7 @@ class DialogueBox extends FlxSpriteGroup
 		
 							FlxG.sound.music.fadeOut(1, 0);
 		
-							new FlxTimer().start(0.2, function(tmr:FlxTimer)
+/* 							new FlxTimer().start(0.2, function(tmr:FlxTimer)
 							{
 								box.alpha -= 1 / 5;
 								bgFade.alpha -= 1 / 5 * 0.7;
@@ -204,8 +206,16 @@ class DialogueBox extends FlxSpriteGroup
 								swagDialogue.alpha -= 1 / 5;
 								dropText.alpha = swagDialogue.alpha;
 								titleText.alpha = swagDialogue.alpha;
-							}, 5);
-		
+							}, 5); */
+
+							FlxTween.tween(box, {y: 1000}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(titleText, {y: 1000}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(swagDialogue, {y: 1000}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(bgFade, {alpha: 0}, 1, {ease: FlxEase.quartIn});
+							portraitLeft.visible = false;
+							portraitRight.visible = false;
+							portraitMiddle.visible = false;
+
 							new FlxTimer().start(1.2, function(tmr:FlxTimer)
 							{
 								finishThing();
@@ -259,12 +269,22 @@ class DialogueBox extends FlxSpriteGroup
 					{
 						portraitRight.visible = true;
 					}
+			case 'bfWHAT':
+				titleText.text = "Boyfriend";
+				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('bf-talk'), 0.6)];
+				portraitLeft.visible = false;
+				portraitMiddle.visible = false;
+				portraitRight.loadGraphic(Paths.image('arctic/dialogue/bfWHAT', 'shared'));
+				if (!portraitRight.visible)
+					{
+						portraitRight.visible = true;
+					}
 			case 'gf':
 				titleText.text = "Girlfriend";
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('gf-talk'), 0.6)];
 				portraitLeft.visible = false;
 				portraitRight.visible = false;
-				portraitMiddle.loadGraphic(Paths.image('arctic/dialogue/girlfriend', 'shared'));
+				portraitMiddle.loadGraphic(Paths.image('arctic/dialogue/gf', 'shared'));
 				if (!portraitMiddle.visible)
 					{
 						portraitMiddle.visible = true;

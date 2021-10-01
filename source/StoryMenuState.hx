@@ -4,6 +4,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
@@ -45,6 +46,9 @@ class StoryMenuState extends MusicBeatState
 
 	var txtTracklist:FlxText;
 
+	var boyfriend:FlxSprite;
+	var snow:FlxBackdrop;
+
 	var grpWeekText:FlxTypedGroup<MenuItem>;
 	var grpWeekCharacters:FlxTypedGroup<MenuCharacter>;
 
@@ -54,6 +58,7 @@ class StoryMenuState extends MusicBeatState
 	var sprDifficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
+	var bgImage:FlxSprite;
 
 	override function create()
 	{
@@ -80,14 +85,34 @@ class StoryMenuState extends MusicBeatState
 		txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
 
+		boyfriend = new FlxSprite(350, 100);
+        boyfriend.frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
+        boyfriend.animation.addByPrefix('idle', 'BF idle dance', 24, true);
+        boyfriend.animation.addByPrefix('hey', 'BF HEY', 24, false);
+        boyfriend.animation.play('idle');
+        boyfriend.scale.set(.6, .6);
+		boyfriend.screenCenter(X);
+        boyfriend.antialiasing = true;
+
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
 		rankText.setFormat(Paths.font("vcr.ttf"), 32);
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
+		snow = new FlxBackdrop(Paths.image('snow', 'preload'), 1, 1, true, true);
+		snow.scrollFactor.set();
+
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
+
+		bgImage = new FlxSprite(0, 56).loadGraphic(Paths.image('arctic/weekthing', 'shared'));
+		add(bgImage);
+		add(boyfriend);
+		add(snow);
+
+		var anotherBar:FlxSprite = new FlxSprite(0, 445).makeGraphic(FlxG.width, 400, FlxColor.BLACK);
+		add(anotherBar);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -163,13 +188,13 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 150");
 
-		add(yellowBG);
-		add(grpWeekCharacters);
+		//add(yellowBG);
+		//add(grpWeekCharacters);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height + 100, 0, "Tracks", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
-		txtTracklist.color = 0xFFe55777;
+		txtTracklist.color = 0xFF89c6f0;
 		add(txtTracklist);
 		// add(rankText);
 		add(scoreText);
@@ -186,6 +211,9 @@ class StoryMenuState extends MusicBeatState
 	{
 		// scoreText.setFormat('VCR OSD Mono', 32);
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
+
+		snow.x += 1.7;
+		snow.y += 1.3;
 
 		scoreText.text = "WEEK SCORE:" + lerpScore;
 
@@ -293,6 +321,7 @@ class StoryMenuState extends MusicBeatState
 
 				grpWeekText.members[curWeek].startFlashing();
 				grpWeekCharacters.members[1].animation.play('bfConfirm');
+				boyfriend.animation.play('hey');
 				stopspamming = true;
 			}
 

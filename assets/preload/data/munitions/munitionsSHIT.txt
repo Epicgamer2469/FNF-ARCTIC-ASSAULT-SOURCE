@@ -1,0 +1,17 @@
+:showBottomImage:arctic/cg/cg1
+:gf:I'm really glad we made it to the campsite before the snow blocked the roads, we're pretty lucky, arent we Boyfriend?
+:bf:Bap!
+:gf:Yeah! Lets enjoy our time out here, it took a while to get here and the reviews were really good!
+:showBottomImage:arctic/cg/cg2
+:gf:Oooh! I really wanna try out the coffee here they said it was super good! We should probably get some snacks before we set up camp anyways!
+:bf:Boop bap beep!
+:showBottomImage:arctic/cg/cg3
+:gf:Woah, i didn't think there would be so many people this time of year. I was hoping we could... y'know get a quiet spot nearby.
+:bf:Beep boop bap skedoop.
+:gf:Oh well, I guess we'll just have to find a good spot quickly before someone else takes it! C'mon lets go!
+:bfWHAT:Beep!?
+:showBottomImage:arctic/cg/cg4
+:gf:Lets go... This way! I wanna stay where its just the two of us alone~
+:bfWHAT:Bap!?!?
+:showBottomImage:arctic/cg/cg5
+:max:Looks like we got two kids who ignored the sign again.

@@ -19,7 +19,7 @@ class OutdatedSubState extends MusicBeatState
 
 	public static var needVer:String = "IDFK LOL";
 	public static var currChanges:String = "dk";
-	var funnyName:String;
+	//var funnyName:String;
 	var funnyTxt:FlxTypeText;
 	var talk:FlxSprite;
 	
@@ -35,7 +35,7 @@ class OutdatedSubState extends MusicBeatState
 	{
 		super.create();
 
-		funnyName = Sys.environment()["USERNAME"];
+		//funnyName = Sys.environment()["USERNAME"];
 
 		talk = new FlxSprite(0, 0).loadGraphic(Paths.image('talk1', 'shared'));
 		talk.screenCenter(X);
@@ -52,10 +52,10 @@ class OutdatedSubState extends MusicBeatState
 		//add(kadeLogo);
 		
 		txt = new FlxText(0, 0, FlxG.width,
-			"Hello there, Just here to say thanks for downloading the mod!"
+			"Hello there, just here to say thanks for downloading the mod!"
 			+ "\n\nCurrently this is just a demo and some things could change."
-			+ "\nSo please Be patient while we work on the full week, \nWe dont want anything bad happening now do we?\n\nAnyways, have fun!",
-			//+ "\n\nPress [ANY KEY] to continue.",
+			+ "\nSo please be patient while we work on the full week, \nWe dont want anything bad happening now do we?\n\nAnyways, have fun!"
+			+ "\n\nPress [ANY KEY] to continue.",
 			32);
 		
 		txt.setFormat("VCR OSD Mono", 32, FlxColor.fromRGB(200, 200, 200), CENTER);
@@ -66,7 +66,7 @@ class OutdatedSubState extends MusicBeatState
 		txt.y += 60;
 		add(txt);
 
-		funnyTxt = new FlxTypeText(0, 0, FlxG.width, "...\n\n" + funnyName, 32);
+/* 		funnyTxt = new FlxTypeText(0, 0, FlxG.width, "..." + funnyName, 32);
 		funnyTxt.setFormat("VCR OSD Mono", 32, FlxColor.fromRGB(200, 200, 200), CENTER);
 		funnyTxt.borderColor = FlxColor.BLACK;
 		funnyTxt.borderSize = 3;
@@ -75,7 +75,7 @@ class OutdatedSubState extends MusicBeatState
 		funnyTxt.sounds = [FlxG.sound.load(Paths.sound('boom'), 0.6)];
 		funnyTxt.visible = false;
 		funnyTxt.y += 60;
-		add(funnyTxt);
+		add(funnyTxt); */
 		
 		new FlxTimer().start(2, function(tmr:FlxTimer)
 		{
@@ -92,21 +92,21 @@ class OutdatedSubState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if(FlxG.keys.justPressed.ANY && funnyShit)
+		if(FlxG.keys.justPressed.ANY && !funnyShit)
 			{
 				leftState = true;
-				FlxG.sound.music.resume();
+				FlxG.sound.music.volume = 1;
 				FlxG.switchState(new MainMenuState());
 			}
-		else if (FlxG.keys.justPressed.ANY)
+/* 		else if (FlxG.keys.justPressed.ANY)
 			{
 				txt.visible = false;
-				FlxG.sound.music.pause();
+				FlxG.sound.music.fadeOut(.25);
 				talk.loadGraphic(Paths.image('talk2', 'shared'));
 				funnyTxt.visible = true;
-				funnyTxt.start(0.25, true);
+				funnyTxt.start(0.15, true);
 				funnyShit = true;
-			}
+			} */
 		super.update(elapsed);
 	}
 }
