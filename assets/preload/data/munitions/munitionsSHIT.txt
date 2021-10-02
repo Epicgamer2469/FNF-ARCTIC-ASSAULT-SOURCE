@@ -3,15 +3,45 @@
 :bf:Bap!
 :gf:Yeah! Lets enjoy our time out here, it took a while to get here and the reviews were really good!
 :showBottomImage:arctic/cg/cg2
-:gf:Oooh! I really wanna try out the coffee here they said it was super good! We should probably get some snacks before we set up camp anyways!
+:gf:Oooh! I really wanna try out the coffee here they said it was super good! Let's get some snacks before we head off for some alone time~!
 :bf:Boop bap beep!
 :showBottomImage:arctic/cg/cg3
 :gf:Woah, i didn't think there would be so many people this time of year. I was hoping we could... y'know get a quiet spot nearby.
 :bf:Beep boop bap skedoop.
 :gf:Oh well, I guess we'll just have to find a good spot quickly before someone else takes it! C'mon lets go!
-:bfWHAT:Beep!?
+:bfWHAT:B-Beep!?
 :showBottomImage:arctic/cg/cg4
-:gf:Lets go... This way! I wanna stay where its just the two of us alone~
+:gf:Hmmm... let's go... this way! I wanna set up camp where it's just the two of us~
 :bfWHAT:Bap!?!?
 :showBottomImage:arctic/cg/cg5
 :max:Looks like we got two kids who ignored the sign again.
+:sasha:Damn, I told you umpteen times to fix the fence Max, you know how annoying brats can be nowadays...
+:maxsmile:Don't worry about it Sasha, I'll go down there myself, maybe even teach 'em a lesson if I have to.
+:max:You stay here and watch over, I'll bring a 2-4 over once I'm done.
+:sasha:Just know if you break your back climbing down again, I wont be the one carrying your sorry ass up again, old man.
+:showBottomImage:arctic/cg/cg6
+:gf:I think this is far enough, lets set up our tent here!
+:bf:Beep boop bap skeboop?
+:gf:Dont worry we'll be fine! Its not that far from the main camp, here let me help you set things up.
+:bf:Bop!
+:showBottomImage:arctic/cg/cg7
+:gf:Ah dang it, I forgot something in the car.
+:gf:Stay right here alright? I'll be right back, just set things up while im away. I'll help you pitch a tent later~
+:bfWHAT:B-beep?!
+:gf:Just be careful and dont hurt yourself alright?
+:showTopImage:arctic/cg/cg8
+:playSound:snow
+:buffer:
+:stopSound:
+:hideTopImage:
+:showBottomImage:arctic/cg/cg8
+:bfWHAT:B-beep boop?
+:hideBottomImage:
+:max:Sorry for scaring you kid, but you know that you're not supposed to be here right?
+:bf:Boop beep skedoop boop!!
+:max:Tch. Didn't you read the damn sign? It clearly says in bold letters, "No Trespassing".
+:bf:Boop bap beep
+:max:Look kid, like I said earlier, you're not supposed to be here, so why don't you be a good boy and make my job easier.
+:max:Grab your shit and get your ass outta here, sound good?
+:bf:Bap Skedeep bop!
+:maxsuprise:Huh? A rap battle? Thats a new one, alright kid. I'll play along, let'see what cha got!

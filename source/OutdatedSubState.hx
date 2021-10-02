@@ -22,6 +22,8 @@ class OutdatedSubState extends MusicBeatState
 	//var funnyName:String;
 	var funnyTxt:FlxTypeText;
 	var talk:FlxSprite;
+
+	var trole:FlxSprite;
 	
 	private var bgColors:Array<String> = [
 		'#314d7f',
@@ -42,6 +44,12 @@ class OutdatedSubState extends MusicBeatState
 		talk.scale.set(.7, .7);
 		talk.antialiasing = true;
 		add(talk);
+
+		trole = new FlxSprite().loadGraphic(Paths.image('trole', 'shared'));
+		trole.alpha = 0;
+		trole.screenCenter();
+		trole.scale.set(2.6, 2.4);
+		trole.antialiasing = true;
 		
 		var kadeLogo:FlxSprite = new FlxSprite(FlxG.width, 0).loadGraphic(Paths.image('KadeEngineLogo'));
 		kadeLogo.scale.y = 0.3;
@@ -65,6 +73,8 @@ class OutdatedSubState extends MusicBeatState
 		txt.screenCenter();
 		txt.y += 60;
 		add(txt);
+
+		add(trole);
 
 /* 		funnyTxt = new FlxTypeText(0, 0, FlxG.width, "..." + funnyName, 32);
 		funnyTxt.setFormat("VCR OSD Mono", 32, FlxColor.fromRGB(200, 200, 200), CENTER);
@@ -95,8 +105,15 @@ class OutdatedSubState extends MusicBeatState
 		if(FlxG.keys.justPressed.ANY && !funnyShit)
 			{
 				leftState = true;
+				trole.alpha = 1;
+				FlxG.sound.play(Paths.sound('boom'));
+				FlxTween.tween(trole, {alpha: 0}, 1);
 				FlxG.sound.music.volume = 1;
-				FlxG.switchState(new MainMenuState());
+
+				new FlxTimer().start(1.1, function(tmr:FlxTimer)
+					{
+						FlxG.switchState(new MainMenuState());
+					});
 			}
 /* 		else if (FlxG.keys.justPressed.ANY)
 			{

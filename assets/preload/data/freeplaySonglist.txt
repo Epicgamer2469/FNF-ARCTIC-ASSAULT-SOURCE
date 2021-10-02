@@ -1,1 +1,1 @@
-Munitions:gf:1
+Munitions:max:1

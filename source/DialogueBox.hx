@@ -12,11 +12,16 @@ import flixel.input.FlxKeyManager;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.math.FlxMath;
 
 using StringTools;
 
 class DialogueBox extends FlxSpriteGroup
 {
+	var ending:Bool = false;
+	var skipText:FlxText;
+	var imPRESSED:Bool = false;
+	var holdShit:Float = .5;
 	var canInput:Bool = true;
 	var stopSound:Bool = false;
 	var funnySound:FlxSound;
@@ -46,6 +51,8 @@ class DialogueBox extends FlxSpriteGroup
 	var handSelect:FlxSprite;
 	var bgFade:FlxSprite;
 
+	var portTween:FlxTween;
+
 	public function new(talkingRight:Bool = true, ?dialogueList:Array<String>)
 	{
 		super();
@@ -59,28 +66,28 @@ class DialogueBox extends FlxSpriteGroup
 		bottomImage.visible = false;
 		add(bottomImage);
 
-		box = new FlxSprite(125, 470);
-		box.scale.set(.9, .9);
+		box = new FlxSprite(0, 0);
+		//box.scale.set(.9, .9);
 		
 		var hasDialog = false;
 
 		hasDialog = true;
-		box.frames = Paths.getSparrowAtlas('arctic/dialogue/box', 'shared');
-		box.animation.addByPrefix('normalOpen', 'box', 24, false);
-		box.animation.addByIndices('normal', 'box', [4], "", 24);
+		//box.frames = Paths.getSparrowAtlas('arctic/dialogue/box', 'shared');
+	//	box.animation.addByPrefix('normalOpen', 'box', 24, false);
+		//box.animation.addByIndices('normal', 'box', [4], "", 24);
 
 		this.dialogueList = dialogueList;
 		
 		if (!hasDialog)
 			return;
 		
-		portraitLeft = new FlxSprite(250, 125);
+		portraitLeft = new FlxSprite(-275, 318);
 /* 		portraitLeft.frames = Paths.getSparrowAtlas('weeb/senpaiPortrait');
 		portraitLeft.animation.addByPrefix('enter', 'Senpai Portrait Enter', 24, false);
 		portraitLeft.setGraphicSize(Std.int(portraitLeft.width * PlayState.daPixelZoom * 0.9)); */
+		portraitLeft.scale.set(.5, .5);
 		portraitLeft.updateHitbox();
 		portraitLeft.scrollFactor.set();
-		add(portraitLeft);
 		portraitLeft.visible = false;
 
 		portraitRight = new FlxSprite(700, 125);
@@ -101,10 +108,12 @@ class DialogueBox extends FlxSpriteGroup
 		add(portraitMiddle);
 		portraitMiddle.visible = false;
 		
-		box.animation.play('normalOpen');
+		box.loadGraphic(Paths.image('arctic/dialogue/finalbox', 'shared'));
 		//box.setGraphicSize(Std.int(box.width * 1));
 		box.updateHitbox();
 		add(box);
+
+		add(portraitLeft);
 
 		handSelect = new FlxSprite(FlxG.width * 0.9, FlxG.height * 0.9).loadGraphic(Paths.image('weeb/pixelUI/hand_textbox'));
 		//add(handSelect);
@@ -119,20 +128,36 @@ class DialogueBox extends FlxSpriteGroup
 		dropText.color = 0xFFD89494;
 		//add(dropText);
 
-		swagDialogue = new FlxTypeText(240, 515, Std.int(FlxG.width * 0.6), "", 24);
-		swagDialogue.font = Paths.font("vcr.ttf");
-		swagDialogue.color = FlxColor.BLACK;
+		swagDialogue = new FlxTypeText(225, 450, Std.int(FlxG.width * 0.6), "", 25);
+		swagDialogue.font = Paths.font("generis.ttf");
+		swagDialogue.color = FlxColor.WHITE;
+		swagDialogue.borderColor = FlxColor.BLACK;
+		swagDialogue.borderStyle = OUTLINE;
+		swagDialogue.borderSize = 2;
 		swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
 		add(swagDialogue);
 
-		titleText = new FlxText(240, 480, Std.int(FlxG.width * 0.6), "", 29);
-		titleText.font = Paths.font("vcr.ttf");
-		titleText.color = FlxColor.BLACK;
+		titleText = new FlxText(10, 375, Std.int(FlxG.width * 0.6), "", 29);
+		titleText.font = Paths.font("generis.ttf");
+		titleText.color = FlxColor.WHITE;
+		titleText.borderColor = FlxColor.BLACK;
+		titleText.borderStyle = OUTLINE;
+		titleText.borderSize = 2;
 		add(titleText);
 
 		topImage = new FlxSprite(0, 0);
 		topImage.visible = false;
 		add(topImage);
+
+		skipText = new FlxText(10, 680, 0, "Hold [SHIFT] to skip dialogue]", 22);
+		skipText.screenCenter(X);
+		skipText.x += 50;
+		skipText.font = Paths.font("vcr.ttf");
+		skipText.color = FlxColor.WHITE;
+		skipText.borderColor = FlxColor.BLACK;
+		skipText.borderStyle = OUTLINE;
+		skipText.borderSize = 2;
+		add(skipText);
 
 		dialogue = new Alphabet(0, 80, "", false, true);
 		// dialogue.x = 90;
@@ -156,7 +181,7 @@ class DialogueBox extends FlxSpriteGroup
 
 		dropText.text = swagDialogue.text;
 
-		box.animation.play('normal');
+		//box.animation.play('normal');
 
 /* 		if (box.animation.curAnim != null)
 		{
@@ -177,6 +202,26 @@ class DialogueBox extends FlxSpriteGroup
 		{
 			addDialogue();
 		}
+
+		if (FlxG.keys.pressed.SHIFT && !ending)
+			{
+				holdShit += 0.005;
+				imPRESSED = true;
+
+				if (holdShit >= 1)
+					{
+						ending = true;
+						PlayState.instance.camHUD.flash(FlxColor.WHITE, .5);
+						endIt();
+					}
+			}
+		else if (imPRESSED = true)
+			{
+				holdShit = .5;
+				imPRESSED = false;
+			}
+
+		skipText.alpha = holdShit;
 		
 		super.update(elapsed);
 	}
@@ -209,10 +254,11 @@ class DialogueBox extends FlxSpriteGroup
 							}, 5); */
 
 							FlxTween.tween(box, {y: 1000}, 1, {ease: FlxEase.quartIn});
-							FlxTween.tween(titleText, {y: 1000}, 1, {ease: FlxEase.quartIn});
-							FlxTween.tween(swagDialogue, {y: 1000}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(titleText, {y: 1375}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(swagDialogue, {y: 1450}, 1, {ease: FlxEase.quartIn});
+							FlxTween.tween(portraitLeft, {y: 1318}, 1, {ease: FlxEase.quartIn});
 							FlxTween.tween(bgFade, {alpha: 0}, 1, {ease: FlxEase.quartIn});
-							portraitLeft.visible = false;
+							FlxTween.tween(bottomImage, {alpha: 0}, 1, {ease: FlxEase.quartIn});
 							portraitRight.visible = false;
 							portraitMiddle.visible = false;
 
@@ -243,6 +289,13 @@ class DialogueBox extends FlxSpriteGroup
 		swagDialogue.resetText(dialogueList[0]);
 		swagDialogue.start(0.04, true);
 
+		if (portTween != null)
+			portTween.cancel;
+
+		portraitLeft.x = -275;
+
+		portTween = FlxTween.tween(portraitLeft, {x: -150}, .75, {ease: FlxEase.quartOut});
+
 		switch (curCharacter)
 		{
 			//DIALOGUE PORTRAITS
@@ -251,6 +304,8 @@ class DialogueBox extends FlxSpriteGroup
 			case 'max':
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
 				titleText.text = "Max";
+				titleText.color = 0xffb412;
+				titleText.borderColor = 0xFF6f4906;
 				portraitRight.visible = false;
 				portraitMiddle.visible = false;
 				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/max', 'shared'));
@@ -258,36 +313,77 @@ class DialogueBox extends FlxSpriteGroup
 					{
 						portraitLeft.visible = true;
 					}
-			//RIGHT SIDE
+			case 'maxsmile':
+				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
+				titleText.text = "Max";
+				titleText.color = 0xffb412;
+				titleText.borderColor = 0xFF6f4906;
+				portraitRight.visible = false;
+				portraitMiddle.visible = false;
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/maxsmile', 'shared'));
+				if (!portraitLeft.visible)
+					{
+						portraitLeft.visible = true;
+					}
+			case 'maxsuprise':
+				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
+				titleText.text = "Max";
+				titleText.color = 0xffb412;
+				titleText.borderColor = 0xFF6f4906;
+				portraitRight.visible = false;
+				portraitMiddle.visible = false;
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/max-suprise', 'shared'));
+				if (!portraitLeft.visible)
+					{
+						portraitLeft.visible = true;
+					}
+			case 'sasha':
+				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
+				titleText.text = "Sasha";
+				titleText.color = 0xf982aa;
+				titleText.borderColor = 0xFF90313b;
+				portraitRight.visible = false;
+				portraitMiddle.visible = false;
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/sasha', 'shared'));
+				if (!portraitLeft.visible)
+					{
+						portraitLeft.visible = true;
+					}
 			case 'bf':
 				titleText.text = "Boyfriend";
+				titleText.color = 0x5ff6ff;
+				titleText.borderColor = 0xFF398ed4;
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('bf-talk'), 0.6)];
-				portraitLeft.visible = false;
+				portraitRight.visible = false;
 				portraitMiddle.visible = false;
-				portraitRight.loadGraphic(Paths.image('arctic/dialogue/bf', 'shared'));
-				if (!portraitRight.visible)
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/bf', 'shared'));
+				if (!portraitLeft.visible)
 					{
-						portraitRight.visible = true;
+						portraitLeft.visible = true;
 					}
 			case 'bfWHAT':
 				titleText.text = "Boyfriend";
+				titleText.color = 0x5ff6ff;
+				titleText.borderColor = 0xFF398ed4;
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('bf-talk'), 0.6)];
-				portraitLeft.visible = false;
+				portraitRight.visible = false;
 				portraitMiddle.visible = false;
-				portraitRight.loadGraphic(Paths.image('arctic/dialogue/bfWHAT', 'shared'));
-				if (!portraitRight.visible)
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/bfWHAT', 'shared'));
+				if (!portraitLeft.visible)
 					{
-						portraitRight.visible = true;
+						portraitLeft.visible = true;
 					}
 			case 'gf':
 				titleText.text = "Girlfriend";
+				titleText.color = 0xda3153;
+				titleText.borderColor = 0xFF9f1e52;
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('gf-talk'), 0.6)];
-				portraitLeft.visible = false;
 				portraitRight.visible = false;
-				portraitMiddle.loadGraphic(Paths.image('arctic/dialogue/gf', 'shared'));
-				if (!portraitMiddle.visible)
+				portraitRight.visible = false;
+				portraitLeft.loadGraphic(Paths.image('arctic/dialogue/gf', 'shared'));
+				if (!portraitLeft.visible)
 					{
-						portraitMiddle.visible = true;
+						portraitLeft.visible = true;
 					}
 			//OTHER DIALOGUE MECHANICS
 
@@ -355,4 +451,39 @@ class DialogueBox extends FlxSpriteGroup
 		curCharacter = splitName[1];
 		dialogueList[0] = dialogueList[0].substr(splitName[1].length + 2).trim();
 	}
+
+	function endIt()
+		if (!isEnding)
+			{
+				isEnding = true;
+			
+				FlxG.sound.music.fadeOut(1, 0);
+
+	/* 							new FlxTimer().start(0.2, function(tmr:FlxTimer)
+				{
+					box.alpha -= 1 / 5;
+					bgFade.alpha -= 1 / 5 * 0.7;
+					portraitLeft.visible = false;
+					portraitRight.visible = false;
+					portraitMiddle.visible = false;
+					swagDialogue.alpha -= 1 / 5;
+					dropText.alpha = swagDialogue.alpha;
+					titleText.alpha = swagDialogue.alpha;
+				}, 5); */
+
+				FlxTween.tween(box, {y: 1000}, 1, {ease: FlxEase.quartIn});
+				FlxTween.tween(titleText, {y: 1375}, 1, {ease: FlxEase.quartIn});
+				FlxTween.tween(swagDialogue, {y: 1450}, 1, {ease: FlxEase.quartIn});
+				FlxTween.tween(portraitLeft, {y: 1318}, 1, {ease: FlxEase.quartIn});
+				FlxTween.tween(bgFade, {alpha: 0}, 1, {ease: FlxEase.quartIn});
+				FlxTween.tween(bottomImage, {alpha: 0}, 1, {ease: FlxEase.quartIn});
+				portraitRight.visible = false;
+				portraitMiddle.visible = false;
+
+				new FlxTimer().start(1.2, function(tmr:FlxTimer)
+				{
+					finishThing();
+					kill();
+				});
+			}
 }
