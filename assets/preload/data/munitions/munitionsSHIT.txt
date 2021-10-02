@@ -1,12 +1,12 @@
 :showBottomImage:arctic/cg/cg1
-:gf:I'm really glad we made it to the campsite before the snow blocked the roads, we're pretty lucky, arent we Boyfriend?
+:gf:I'm really glad we made it to the campsite before the snow blocked the roads, we're pretty lucky, aren't we Boyfriend?
 :bf:Bap!
 :gf:Yeah! Lets enjoy our time out here, it took a while to get here and the reviews were really good!
 :showBottomImage:arctic/cg/cg2
 :gf:Oooh! I really wanna try out the coffee here they said it was super good! Let's get some snacks before we head off for some alone time~!
 :bf:Boop bap beep!
 :showBottomImage:arctic/cg/cg3
-:gf:Woah, i didn't think there would be so many people this time of year. I was hoping we could... y'know get a quiet spot nearby.
+:gf:Woah, I didn't think there would be so many people this time of year. I was hoping we could... y'know get a quiet spot nearby.
 :bf:Beep boop bap skedoop.
 :gf:Oh well, I guess we'll just have to find a good spot quickly before someone else takes it! C'mon lets go!
 :bfWHAT:B-Beep!?
@@ -22,11 +22,11 @@
 :showBottomImage:arctic/cg/cg6
 :gf:I think this is far enough, lets set up our tent here!
 :bf:Beep boop bap skeboop?
-:gf:Dont worry we'll be fine! Its not that far from the main camp, here let me help you set things up.
+:gf:Dont worry we'll be fine! It's not that far from the main camp, here let me help you set things up.
 :bf:Bop!
 :showBottomImage:arctic/cg/cg7
 :gf:Ah dang it, I forgot something in the car.
-:gf:Stay right here alright? I'll be right back, just set things up while im away. I'll help you pitch a tent later~
+:gf:Stay right here alright? I'll be right back, just set things up while I'm away. I'll help you pitch a tent later~
 :bfWHAT:B-beep?!
 :gf:Just be careful and dont hurt yourself alright?
 :showTopImage:arctic/cg/cg8

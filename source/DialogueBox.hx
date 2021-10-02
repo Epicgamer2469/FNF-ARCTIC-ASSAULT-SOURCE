@@ -149,7 +149,7 @@ class DialogueBox extends FlxSpriteGroup
 		topImage.visible = false;
 		add(topImage);
 
-		skipText = new FlxText(10, 680, 0, "Hold [SHIFT] to skip dialogue]", 22);
+		skipText = new FlxText(10, 680, 0, "Hold [SHIFT] to skip dialogue", 22);
 		skipText.screenCenter(X);
 		skipText.x += 50;
 		skipText.font = Paths.font("vcr.ttf");
